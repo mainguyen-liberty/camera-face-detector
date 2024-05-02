@@ -83,9 +83,6 @@
     "react-native": "*",
     "react-native-vision-camera": "*"
   },
-  "workspaces": [
-    "example"
-  ],
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",

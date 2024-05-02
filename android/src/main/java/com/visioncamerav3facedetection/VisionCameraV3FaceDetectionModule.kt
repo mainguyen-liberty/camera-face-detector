@@ -17,7 +17,14 @@ import com.mrousavy.camera.frameprocessors.FrameProcessorPlugin
 import com.mrousavy.camera.frameprocessors.VisionCameraProxy
 
 class VisionCameraV3FaceDetectionModule (proxy : VisionCameraProxy, options: Map<String, Any>?): FrameProcessorPlugin() {
-
+  private fun getRotationDegrees(orientation: Orientation): Int {
+    return when (orientation) {
+      Orientation.PORTRAIT -> 0
+      Orientation.LANDSCAPE_LEFT -> 90
+      Orientation.PORTRAIT_UPSIDE_DOWN -> 180
+      Orientation.LANDSCAPE_RIGHT -> 270
+    }
+  }
   override fun callback(frame: Frame, arguments: Map<String, Any>?): Any {
       try {
         val performanceModeValue = if (arguments?.get("performanceMode") == "accurate") FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE else FaceDetectorOptions.PERFORMANCE_MODE_FAST
@@ -34,9 +41,9 @@ class VisionCameraV3FaceDetectionModule (proxy : VisionCameraProxy, options: Map
           .apply { if (arguments?.get("trackingEnabled") == "true") enableTracking() }
           .build()
         val mediaImage: Image = frame.image
-        val orientation : Orientation = frame.orientation
+        val rotationDegrees = getRotationDegrees(frame.orientation)
         val detector = FaceDetection.getClient(options)
-        val image = InputImage.fromMediaImage(mediaImage, orientation.toSurfaceRotation())
+        val image = InputImage.fromMediaImage(mediaImage, rotationDegrees)
         val task: Task<List<Face>> = detector.process(image)
         val faces: List<Face> = Tasks.await(task)
         val array = WritableNativeArray()
