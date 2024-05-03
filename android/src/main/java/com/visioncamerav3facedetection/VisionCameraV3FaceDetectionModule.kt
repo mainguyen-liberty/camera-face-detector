@@ -138,19 +138,19 @@ class VisionCameraV3FaceDetectionModule (proxy : VisionCameraProxy, options: Map
           if (face.smilingProbability != null) {
             val smileProb = face.smilingProbability
             if (smileProb != null) {
-              map.putInt("smileProb",smileProb.toInt())
+              map.putDouble("smileProb",smileProb.toDouble())
             }
           }
           if (face.rightEyeOpenProbability != null) {
             val rightEyeOpenProb = face.rightEyeOpenProbability
             if (rightEyeOpenProb != null) {
-              map.putInt("rightEyeOpenProb",rightEyeOpenProb.toInt())
+              map.putDouble("rightEyeOpenProb",rightEyeOpenProb.toDouble())
             }
           }
           if (face.leftEyeOpenProbability != null) {
             val leftEyeOpenProb = face.leftEyeOpenProbability
             if (leftEyeOpenProb != null) {
-              map.putInt("leftEyeOpenProb",leftEyeOpenProb.toInt())
+              map.putDouble("leftEyeOpenProb",leftEyeOpenProb.toDouble())
             }
           }
           array.pushMap(map)
@@ -160,7 +160,6 @@ class VisionCameraV3FaceDetectionModule (proxy : VisionCameraProxy, options: Map
       } catch (e: Exception) {
            throw Exception("Error processing face detection: $e")
       }
-}
-
+  }
 }
 
