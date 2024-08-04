@@ -81,7 +81,6 @@
     "react-native": "*",
     "react-native-vision-camera": "*"
   },
-  "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
